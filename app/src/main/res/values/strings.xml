@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Volkswagen Group Archive</string>
+    <string name="group_title">Volkswagen</string>
+    <string name="navigate_back">뒤로가기</string>
+    <string name="navigate_home">홈</string>
+
+    <string name="brand_audi_name">Audi</string>
+    <string name="brand_audi_slogan">Progress through technology</string>
+
+    <string name="brand_volkswagen_name">Volkswagen</string>
+    <string name="brand_volkswagen_slogan">Drive Bigger</string>
+
+    <string name="brand_lamborghini_name">Lamborghini</string>
+    <string name="brand_lamborghini_slogan">Driving Humans Beyond</string>
+
+    <string name="brand_bentley_name">Bentley</string>
+    <string name="brand_bentley_slogan">Be Extraordinary</string>
+
+
 </resources>
