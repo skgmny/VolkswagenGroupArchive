@@ -5,8 +5,13 @@
     <dimen name="brand_card_spacing">12dp</dimen> //카드끼리
     <dimen name="brand_list_padding">16dp</dimen> //화면의 가장자리와 카드 사이
     <dimen name="brand_image_text_spacing">16dp</dimen> //카드 내의 이미지와 글 사이
+    <dimen name="brand_text_spacing">4dp</dimen> //브랜드 이름과 슬로건 사이
 
+    <dimen name="vehicle_image_height">180dp</dimen>
+    <dimen name="vehicle_description_spacing">8dp</dimen> //
+    <dimen name="vehicle_card_content_padding">16dp</dimen> //글자 영역 내부 패딩
 
+    <dimen name="favorite_icon_size">20dp</dimen>
 
 
 </resources>

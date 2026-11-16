@@ -4,39 +4,51 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.volkswagengrouparchive.ui.theme.VolkswagenGroupArchiveTheme
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material.icons.filled.Home
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.compose.NavHost
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.navigation.compose.composable
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Card
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.Image
-import androidx.compose.ui.res.painterResource
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.volkswagengrouparchive.data.BrandDataSource
+import com.example.volkswagengrouparchive.ui.theme.VolkswagenGroupArchiveTheme
+import com.example.volkswagengrouparchive.data.VehicleDataSource
 
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.volkswagengrouparchive.ui.GroupViewModel
+import com.example.volkswagengrouparchive.data.Vehicle
 
 
 class MainActivity : ComponentActivity() {
@@ -59,18 +71,36 @@ fun GroupTopAppBarPreview() {
     }
 }
 
+//@Preview(showBackground = true)
+//@Composable
+//fun BrandListScreenPreview() {
+//    VolkswagenGroupArchiveTheme {
+//        BrandListScreen( onBrandClick = {}
+//        )
+//    }
+//}
+
 @Preview(showBackground = true)
 @Composable
-fun BrandListScreenPreview() {
+fun VehicleCardPreview() {
     VolkswagenGroupArchiveTheme {
-        BrandListScreen()
+        VehicleCard(
+            imageRes = R.drawable.lamborghini_revuelto,
+            nameRes = R.string.vehicle_revuelto_name,
+            descriptionRes = R.string.vehicle_revuelto_description,
+            specsRes = R.string.vehicle_revuelto_specs,
+            isFavorite = true,
+            onFavoriteClick = {}
+        )
     }
 }
 
 
 //시작//
 @Composable
-fun VolkswagenGroupApp() {
+fun VolkswagenGroupApp(
+    groupViewModel: GroupViewModel = viewModel()
+) {
     val navController = rememberNavController()
 
     Scaffold(
@@ -85,7 +115,18 @@ fun VolkswagenGroupApp() {
                 modifier = Modifier.padding(innerPadding),
                 builder = {
                     composable(route = "brands") {
-                        BrandListScreen()
+                        BrandListScreen(
+                            onBrandClick = { brandId ->
+                                groupViewModel.selectBrand(brandId)
+                                navController.navigate("vehicles")
+                            }
+                        )
+                    }
+
+                    composable(route = "vehicles") {
+                        VehicleListScreen(
+                            vehicles = groupViewModel.selectedBrandVehicles
+                        )
                     }
                 }
             )
@@ -129,7 +170,8 @@ fun GroupTopAppBar() {
 
 @Composable
 fun BrandListScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBrandClick: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -140,36 +182,17 @@ fun BrandListScreen(
             dimensionResource(R.dimen.brand_card_spacing)
         ),
         content ={
-            item {
+            items(BrandDataSource.brands) { brand ->
                 BrandCard(
-                    imageRes = R.drawable.lamborghini,
-                    nameRes = R.string.brand_lamborghini_name,
-                    sloganRes = R.string.brand_lamborghini_slogan
-                )
-            }
+                    imageRes = brand.imageRes,
+                    nameRes = brand.nameRes,
+                    sloganRes = brand.sloganRes,
+                    onClick = {
+                        onBrandClick(brand.id)
+                    }
 
-            item {
-                BrandCard(
-                    imageRes = R.drawable.bentley,
-                    nameRes = R.string.brand_bentley_name,
-                    sloganRes = R.string.brand_bentley_slogan
                 )
             }
-
-            item {
-                BrandCard(
-                    imageRes = R.drawable.audi,
-                    nameRes = R.string.brand_audi_name,
-                    sloganRes = R.string.brand_audi_slogan
-                )
-            }
-                item {
-                    BrandCard(
-                        imageRes = R.drawable.volkswagen,
-                        nameRes = R.string.brand_volkswagen_name,
-                        sloganRes = R.string.brand_volkswagen_slogan
-                    )
-                }
         }
     )
 }
@@ -179,9 +202,11 @@ fun BrandCard(
     modifier: Modifier = Modifier,
     imageRes: Int,
     nameRes: Int,
-    sloganRes: Int
+    sloganRes: Int,
+    onClick: () -> Unit
 ) {
     Card(
+        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         content = {
             Row (
@@ -201,15 +226,146 @@ fun BrandCard(
                 )
                 )
 
-                Column {
+                Column (
+                    verticalArrangement = Arrangement.spacedBy(
+                        dimensionResource(R.dimen.brand_text_spacing)
+                    )
+                ){
                     Text(
-                        text = stringResource(nameRes)
+                        text = stringResource(nameRes),
+                        style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = stringResource(sloganRes)
+                        text = stringResource(sloganRes),
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }
         }
     )
+}
+
+@Composable
+fun VehicleListScreen(
+    modifier: Modifier = Modifier,
+    vehicles: List<Vehicle>
+) {
+    LazyColumn(
+        modifier = modifier,
+        content = {
+            items(vehicles) { vehicle ->
+                VehicleCard(
+                    imageRes = vehicle.imageRes,
+                    nameRes = vehicle.nameRes,
+                    descriptionRes = vehicle.descriptionRes,
+                    specsRes = vehicle.specsRes,
+                    isFavorite = false,
+                    onFavoriteClick = {}
+                )
+            }
+        }
+    )
+}
+
+@Composable
+fun VehicleCard(
+    modifier: Modifier = Modifier,
+    imageRes: Int,
+    nameRes: Int,
+    descriptionRes: Int,
+    specsRes: Int,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        content = {
+            Column {
+                Image(
+                    painter = painterResource(imageRes),
+                    contentDescription = stringResource(nameRes),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(
+                            dimensionResource(R.dimen.vehicle_image_height)
+                        ),
+                    contentScale = ContentScale.Crop
+                )
+
+                Column(
+                    modifier = Modifier.padding(
+                        dimensionResource(R.dimen.vehicle_card_content_padding)
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        Column(
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = stringResource(nameRes),
+                                style = MaterialTheme.typography.titleMedium
+                            )
+
+                            Text(
+                                text = stringResource(descriptionRes),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+
+                        FavoriteButton(
+                            isFavorite = isFavorite,
+                            onClick = onFavoriteClick
+                        )
+                    } // 이름·소개·별을 담은 Row 끝
+
+                    Text(
+                        text = stringResource(specsRes),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontFamily = FontFamily(
+                            Font(R.font.orbitron)
+                        ),
+                        modifier = Modifier.padding(
+                            top = dimensionResource(
+                                R.dimen.vehicle_description_spacing
+                            )
+                        )
+                    )
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun FavoriteButton(
+    isFavorite: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        modifier = modifier,
+        onClick = onClick
+    ){
+        Icon(
+            modifier = Modifier.size(
+                dimensionResource(R.dimen.favorite_icon_size)
+            ),
+            imageVector = if (isFavorite) {
+                Icons.Filled.Star
+            } else {
+                Icons.Outlined.StarBorder
+            },
+            contentDescription = stringResource(
+                if (isFavorite) {
+                    R.string.remove_from_favorites
+                } else {
+                    R.string.add_to_favorites
+                }
+            )
+        )
+    }
 }
