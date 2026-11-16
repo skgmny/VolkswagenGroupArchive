@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.example.volkswagengrouparchive.data.VehicleDataSource
+import com.example.volkswagengrouparchive.data.BrandDataSource
 
 class GroupViewModel : ViewModel() {
     val selectedBrandVehicles
@@ -39,4 +40,6 @@ class GroupViewModel : ViewModel() {
             favoriteVehicleIds + vehicleId
         }
     }
+
+    val brands = BrandDataSource.brands
 }
