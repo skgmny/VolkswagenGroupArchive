@@ -6,5 +6,6 @@ data class Vehicle(
     val imageRes: Int,
     val nameRes: Int,
     val descriptionRes: Int,
-    val specsRes: Int
+    val specsRes: Int,
+    val detailRes: Int
 )

@@ -67,7 +67,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GroupTopAppBarPreview() {
     VolkswagenGroupArchiveTheme {
-        GroupTopAppBar()
+        GroupTopAppBar(
+            onBackClick = {},
+            onHomeClick = {}
+        )
     }
 }
 
@@ -90,7 +93,8 @@ fun VehicleCardPreview() {
             descriptionRes = R.string.vehicle_revuelto_description,
             specsRes = R.string.vehicle_revuelto_specs,
             isFavorite = true,
-            onFavoriteClick = {}
+            onFavoriteClick = {},
+            onClick = {},
         )
     }
 }
@@ -106,7 +110,17 @@ fun VolkswagenGroupApp(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            GroupTopAppBar()
+            GroupTopAppBar(
+                onBackClick = {
+                    navController.navigateUp()
+                },
+                onHomeClick = {
+                    navController.popBackStack(
+                        route = "brands",
+                        inclusive = false
+                    )
+                }
+            )
         },
         content = { innerPadding ->
             NavHost(
@@ -125,8 +139,30 @@ fun VolkswagenGroupApp(
 
                     composable(route = "vehicles") {
                         VehicleListScreen(
-                            vehicles = groupViewModel.selectedBrandVehicles
+                            vehicles = groupViewModel.selectedBrandVehicles,
+                            onVehicleClick = { vehicleId ->
+                                groupViewModel.selectVehicle(vehicleId)
+                                navController.navigate("detail")
+                            },
+                            favoriteVehicleIds = groupViewModel.favoriteVehicleIds,
+                            onFavoriteClick = { vehicleId ->
+                                groupViewModel.toggleFavorite(vehicleId)
+                            }
                         )
+                    }
+
+                    composable(route = "detail") {
+                        val vehicle = groupViewModel.selectedVehicle
+
+                        if (vehicle != null) {
+                            VehicleDetailScreen(
+                                vehicle = vehicle,
+                                isFavorite = vehicle.id in groupViewModel.favoriteVehicleIds,
+                                onFavoriteClick = {
+                                    groupViewModel.toggleFavorite(vehicle.id)
+                                }
+                            )
+                        }
                     }
                 }
             )
@@ -136,16 +172,19 @@ fun VolkswagenGroupApp(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GroupTopAppBar() {
+fun GroupTopAppBar(
+    onBackClick: () -> Unit,
+    onHomeClick: () -> Unit
+) {
     TopAppBar(
         title = {
             Text(text = stringResource(R.string.group_title))
         },
         navigationIcon = {
             IconButton(
-                onClick = {
+                onClick = onBackClick
                     // 나중에 뒤로가기 동작 연결
-                }
+
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -155,9 +194,9 @@ fun GroupTopAppBar() {
         },
         actions = {
             IconButton(
-                onClick = {
+                onClick = onHomeClick
                     // 나중에 홈으로 이동하는 동작 연결
-                }
+
             ) {
                 Icon(
                     imageVector = Icons.Filled.Home,
@@ -248,7 +287,10 @@ fun BrandCard(
 @Composable
 fun VehicleListScreen(
     modifier: Modifier = Modifier,
-    vehicles: List<Vehicle>
+    vehicles: List<Vehicle>,
+    onVehicleClick: (String) -> Unit,
+    favoriteVehicleIds: Set<String>,
+    onFavoriteClick: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -259,8 +301,13 @@ fun VehicleListScreen(
                     nameRes = vehicle.nameRes,
                     descriptionRes = vehicle.descriptionRes,
                     specsRes = vehicle.specsRes,
-                    isFavorite = false,
-                    onFavoriteClick = {}
+                    isFavorite = vehicle.id in favoriteVehicleIds,
+                    onFavoriteClick = {
+                        onFavoriteClick(vehicle.id)
+                    },
+                    onClick = {
+                        onVehicleClick(vehicle.id)
+                    }
                 )
             }
         }
@@ -275,9 +322,11 @@ fun VehicleCard(
     descriptionRes: Int,
     specsRes: Int,
     isFavorite: Boolean,
+    onClick: () -> Unit,
     onFavoriteClick: () -> Unit
 ) {
     Card(
+        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         content = {
             Column {
@@ -368,4 +417,49 @@ fun FavoriteButton(
             )
         )
     }
+}
+
+@Composable
+fun VehicleDetailScreen(
+    modifier: Modifier = Modifier,
+    vehicle: Vehicle,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit
+) {
+    LazyColumn(
+        modifier = modifier,
+        content = {
+            item {
+                Text(
+                    text = stringResource(R.string.vehicle_detail_heading),
+                    fontFamily = FontFamily(
+                        Font(R.font.songmyung_regular)
+                    )
+                )
+            }
+            item {
+                VehicleCard(
+                    imageRes = vehicle.imageRes,
+                    nameRes = vehicle.nameRes,
+                    descriptionRes = vehicle.descriptionRes,
+                    specsRes = vehicle.specsRes,
+                    isFavorite = isFavorite,
+                    onFavoriteClick = onFavoriteClick,
+                    onClick = {}
+                )
+            }
+            item {
+                Text(
+                    text = stringResource(vehicle.detailRes),
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontFamily = FontFamily(
+                        Font(R.font.songmyung_regular)
+                    ),
+                    modifier = Modifier.padding(
+                        dimensionResource(R.dimen.vehicle_card_content_padding)
+                    )
+                )
+            }
+        }
+    )
 }

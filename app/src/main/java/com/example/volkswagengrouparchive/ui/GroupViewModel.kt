@@ -17,4 +17,26 @@ class GroupViewModel : ViewModel() {
     fun selectBrand(brandId: String) {
         selectedBrandId = brandId
     }
+    var selectedVehicleId by mutableStateOf<String?>(null)
+        private set
+
+    fun selectVehicle(vehicleId: String) {
+        selectedVehicleId = vehicleId
+    }
+
+    val selectedVehicle
+        get() = VehicleDataSource.vehicles.find { vehicle ->
+            vehicle.id == selectedVehicleId
+        }
+
+    var favoriteVehicleIds by mutableStateOf(setOf<String>())
+        private set
+
+    fun toggleFavorite(vehicleId: String) {
+        favoriteVehicleIds = if (vehicleId in favoriteVehicleIds) {
+            favoriteVehicleIds - vehicleId
+        } else {
+            favoriteVehicleIds + vehicleId
+        }
+    }
 }
