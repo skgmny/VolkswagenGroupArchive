@@ -1,0 +1,98 @@
+[
+  {
+    "id": "lamborghini",
+    "name": "Lamborghini",
+    "slogan": "Driving Humans Beyond",
+    "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/lamborghini.png",
+    "vehicles": [
+      {
+        "id": "revuelto",
+        "name": "Revuelto",
+        "description": "V12 plug-in hybrid super sports car",
+        "specs": "Top speed: >350 km/h\nPowertrain: 6.5L V12 + 3 electric motors\n0–100 km/h: 2.5 s",
+        "detail": "레부엘토는 람보르기니 창립 60주년을 앞두고 공개된 최초의 HPEV 하이브리드 슈퍼 스포츠카입니다.\n                \n\n V12 엔진과 세 개의 전기 모터, 듀얼 클러치 변속기를 결합해 총 1,015 CV의 출력을 발휘합니다.\n                외관은 람보르기니의 전통에 미래지향적인 디자인을 더했으며, 조각 같은 선과 날카로운 면, 외부로 드러난 V12 엔진이 특징입니다.",
+        "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/lamborghini_revuelto.jpg"
+      },
+      {
+        "id": "temerario",
+        "name": "Temerario",
+        "description": "V8 twin-turbo hybrid super sports car",
+        "specs": "Top speed: 343 km/h\nPowertrain: 4.0L twin-turbo V8 + 3 electric motors\n0–100 km/h: 2.7 s",
+        "detail": "테메라리오는 V8 트윈터보 엔진과 세 개의 전기 모터를 결합해 총 920 CV의 출력을 발휘하는 하이브리드 슈퍼 스포츠카입니다.\n                람보르기니 HPEV 라인업의 두 번째 모델로, 성능과 편안함을 함께 추구합니다.\n                \n\n 외관에는 대담한 선과 미래지향적인 육각형 주간주행등을 적용했습니다.\n                외부로 드러난 엔진과 공기역학적 효율을 높이는 스포일러도 특징입니다.",
+        "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/lamborghini_temerario.webp"
+      }
+    ]
+  },
+  {
+    "id": "bentley",
+    "name": "Bentley",
+    "slogan": "Be Extraordinary",
+    "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/bentley.png",
+    "vehicles": [
+      {
+        "id": "continental_gt",
+        "name": "Continental GT",
+        "description": "Luxury hybrid grand touring coupe",
+        "specs": "Top speed: 270 km/h\nPowertrain: 4.0L turbocharged V8 + electric motor\n0–100 km/h: 3.7 s",
+        "detail": "컨티넨탈 GT는 주행 성능과 고급스러운 수공예 마감, 첨단 기술을 결합한 그랜드 투어러입니다.\n        4.0리터 V8 터보 엔진과 전기 모터로 구성된 하이브리드 시스템은 총 680 PS의 출력과 930 Nm의 토크를 제공합니다.\n        \n\n 실내에는 수작업으로 마감한 나파 가죽과 우드 베니어를 적용했습니다.\n        다양한 외장 색상과 실내 소재를 선택해 자신만의 차량으로 구성할 수 있습니다.",
+        "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/bentley_continential_gt.jpg"
+      },
+      {
+        "id": "bentayga_v8",
+        "name": "Bentayga V8",
+        "description": "Luxury V8 SUV",
+        "specs": "Top speed: 290 km/h\nPowertrain: 4.0L V8 petrol engine\n0–100 km/h: 4.5 s",
+        "detail": "벤테이가는 고급스러운 수공예 마감과 주행 성능, 다양한 활용성을 결합한 럭셔리 SUV입니다.\n        V8 모델은 4.0리터 가솔린 엔진으로 550 PS의 출력과 770 Nm의 토크를 발휘합니다.\n\n실내에는 수작업으로 마감한 가죽과 우드 베니어를 적용했습니다.\n        다양한 좌석 구성과 색상, 마감 소재를 선택할 수 있으며, 옵션으로 앞좌석 열선과 통풍, 마사지 기능을 제공합니다.",
+        "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/bentley_bentayga.webp"
+      }
+    ]
+  },
+  {
+    "id": "audi",
+    "name": "Audi",
+    "slogan": "Progress through technology",
+    "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/audi.png",
+    "vehicles": [
+      {
+        "id": "rs_etron_performance",
+        "name": "RS e-tron GT performance",
+        "description": "Fully electric high-performance grand tourer",
+        "specs": "Top speed: 250 km/h (limited)\nPowertrain: Dual electric motors, quattro AWD\n0–100 km/h: 2.5 s (Launch Control)",
+        "detail": "RS e-tron GT performance는 두 개의 전기 모터로 구동되는 고성능 전기 그랜드 투어러입니다.\n                앞뒤 차축에 배치된 모터가 사륜구동을 구현하며, 런치 컨트롤 사용 시 최대 680 kW의 출력을 제공합니다.\n                \n\n배터리와 모터의 냉각을 관리하는 열관리 시스템을 적용해 높은 성능을 뒷받침합니다.\n                전용 RS performance 주행 모드와 푸시 투 패스 기능도 갖추고 있습니다.",
+        "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/audi_rs_etron.jpg"
+      },
+      {
+        "id": "rs_q8_performance",
+        "name": "RS Q8 performance",
+        "description": "V8 twin-turbo high-performance SUV",
+        "specs": "Top speed: 250 km/h (limited)\nPowertrain: 4.0L twin-turbo V8, quattro AWD\n0–100 km/h: 3.6 s",
+        "detail": "RS Q8 performance는 4.0리터 V8 트윈터보 엔진을 사용하는 고성능 SUV입니다.\n                640 PS의 출력과 850 Nm의 토크를 발휘하며, 정지 상태에서 시속 100km까지 3.6초 만에 가속합니다.\n                \n\n상시 quattro 사륜구동과 8단 팁트로닉 변속기를 적용했습니다.\n                스포티한 주행 성능과 일상적인 활용성을 함께 추구하며, 전면의 대형 공기 흡입구와 타원형 배기구가 특징입니다.",
+        "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/audi_rs_q8.webp"
+      }
+    ]
+  },
+  {
+    "id": "volkswagen",
+    "name": "Volkswagen",
+    "slogan": "Drive Bigger",
+    "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/volkswagen.png",
+    "vehicles": [
+      {
+        "id": "golf_gti",
+        "name": "Golf GTI",
+        "description": "Turbocharged performance hatchback",
+        "specs": "Top speed: 250 km/h (limited)\nPowertrain: 2.0L turbocharged petrol engine\n0–100 km/h: 5.9 s",
+        "detail": "골프 GTI는 실용적인 해치백 차체에 스포티한 주행 성능을 더한 모델입니다.\n        2024년 유럽형 모델은 2.0리터 TSI 터보 가솔린 엔진을 사용하며, 최고출력 265 PS를 발휘합니다.\n        \n\n7단 DSG 변속기를 통해 동력을 전달하며, 정지 상태에서 시속 100km까지 5.9초 만에 가속합니다.\n        최고속도는 전자적으로 시속 250km로 제한됩니다.",
+        "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/volkswagen_golf_gti.webp"
+      },
+      {
+        "id": "tiguan_etsi",
+        "name": "Tiguan 1.5 eTSI",
+        "description": "Versatile mild-hybrid SUV",
+        "specs": "Top speed: 210 km/h\nPowertrain: 1.5L turbo petrol, 48V mild hybrid\n0–100 km/h: 9.1 s",
+        "detail": "티구안은 일상 주행과 다양한 이동에 활용할 수 있는 SUV입니다.\n        여기에서 소개하는 2024년 유럽형 1.5 eTSI 모델은 150 PS의 출력을 발휘하며, DSG 자동변속기를 사용합니다.\n        \n\n터보 가솔린 엔진에 48V 마일드 하이브리드 시스템을 결합했습니다.\n        외부 충전이 필요한 플러그인 하이브리드와는 다른 방식이며, 정지 상태에서 시속 100km까지 9.1초 만에 가속합니다.",
+        "img_src": "https://raw.githubusercontent.com/skgmny/VolkswagenGroupArchive/master/app/src/main/res/drawable/volkswagen_tiguan.jpg"
+      }
+    ]
+  }
+]
